@@ -5,8 +5,7 @@
 
 entity *getAtPosition(int position, entity *head){
     entity *aux = head->next;
-    while(aux != NULL){
-        if(aux->position == position) break;
+    for(int i = 0; i < position; i++){
         aux = aux->next;
     }
     return aux;
@@ -41,9 +40,6 @@ void changePositions(int *i, int*j, entity *head){
         previousJ->next = entityI;
         entityI->next = nextJ;
     }
-    
-    entityJ->position = *i;
-    entityI->position = *j;
 }
 
 void partition(

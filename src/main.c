@@ -19,7 +19,7 @@ int main()
     head->next = NULL;
     
     FILE *readingFile = openFile("teste.txt", "rt");
-    readFile(readingFile, head, 5);
+    readFile(readingFile, head);
 
     printEntities(head);
     quickSort(head, 5);

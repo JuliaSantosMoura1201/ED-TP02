@@ -5,11 +5,11 @@
 #include "files.h"
 #include "entity.h"
 
-void getParameters(char *result, entity *head, int size){
+void getParameters(char *result, entity *head){
 
     char *url = strtok(result, " ");
     int amount = atof(strtok(NULL, " "));
-    addEntity(url, amount, head, size);
+    addEntity(url, amount, head);
 }
 
 FILE *openFile(char *name, const char *op){
@@ -25,13 +25,13 @@ FILE *openFile(char *name, const char *op){
     return file;
 }
 
-void readFile(FILE *file, entity *head, int size){
+void readFile(FILE *file, entity *head){
     char line[100];
     char *result;
     while(!feof(file)){
         result = fgets(line, 100, file);
         if(result){
-            getParameters(result, head, size);
+            getParameters(result, head);
         }
     }
 }
