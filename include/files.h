@@ -6,6 +6,6 @@
 #include "entity.h"
 
 FILE *openFile(char *fileName, const char *op);
-void readFile(FILE *file, entity *head);
+void readFile(FILE *file, int numEntities, int numTapes);
 
 #endif

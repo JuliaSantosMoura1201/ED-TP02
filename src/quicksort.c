@@ -53,8 +53,8 @@ void partition(
     *j = right;
     entity *_pivot = findPivot(i, j, head);
     do{
-        while(_pivot->amount > getAtPosition(*i, head)->amount)(*i)++;
-        while(_pivot->amount < getAtPosition(*j, head)->amount)(*j)--;
+        while(_pivot->amount < getAtPosition(*i, head)->amount)(*i)++;
+        while(_pivot->amount > getAtPosition(*j, head)->amount)(*j)--;
 
         if(*i <= *j){
             changePositions(i, j, head);

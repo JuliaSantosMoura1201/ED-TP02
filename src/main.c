@@ -8,23 +8,29 @@
 
 int main()
 {
-   /* int numEntidades;
-    scanf("%d", &numEntidades);
+    /*int numEntities;
+    scanf("%d", &numEntities);
+
+    int numTapes;
+    scanf("%d", &numTapes);
 
     char readFileName[100];
-    scanf("%s", readFileName);*/
+    scanf("%s", readFileName);
+
+    char writeFileName[100];
+    scanf("%s", writeFileName);*/
 
     setbuf(stdout, NULL);
-    entity *head = malloc(sizeof(entity));
-    head->next = NULL;
+    /*entity *head = malloc(sizeof(entity));
+    head->next = NULL;*/
     
     FILE *readingFile = openFile("teste.txt", "rt");
-    readFile(readingFile, head);
+    readFile(readingFile, 5, 3);
 
-    printEntities(head);
+   /* printEntities(head);
     quickSort(head, 5);
 
     printf("\n\nAfter Quickstort\n");
-    printEntities(head);
+    printEntities(head);*/
     return 0;
 }
