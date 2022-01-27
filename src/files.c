@@ -26,6 +26,30 @@ FILE *openFile(char *name, const char *op){
     return file;
 }
 
+char *createWriteFileName(int tapeIndex){
+    char *fileName = malloc (sizeof (char) * 25);
+    sprintf(fileName, "rodada-%i.txt", tapeIndex);
+    return fileName;
+}
+
+void writeOnFile(char *line, FILE *file){
+    char *str = malloc(strlen(line));
+    strcpy(str, line);
+    fputs(str, file);
+    fputs("\n", file);
+}
+
+
+void writeEntitiesAtFile(entity *head, FILE *file){
+    entity *aux = head->next;
+    while(aux != NULL){
+        char *line = malloc (sizeof (char) * 25);
+        sprintf(line, "%s %d", aux->url, aux->amount);
+        writeOnFile(line, file);
+        aux = aux->next;
+    }
+}
+
 void readFile(FILE *file, int numEntities, int numTapes){
     char line[100];
     char *result;
@@ -41,12 +65,11 @@ void readFile(FILE *file, int numEntities, int numTapes){
                     getParameters(result, head);
                 }
             }
-            printEntities(head);
+            
             quickSort(head, numEntities);
 
-            printf("\nAfter Quickstort\n");
-            printEntities(head);
-            printf("\n\n");
+            FILE *file = openFile(createWriteFileName(i), "wt");
+            writeEntitiesAtFile(head, file);
         }
     }
 }
