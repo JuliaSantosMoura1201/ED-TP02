@@ -7,5 +7,6 @@
 
 FILE *openFile(char *fileName, const char *op);
 void readFile(FILE *file, int numEntities, int numTapes);
+void readFirstLineFromEach(int numTapes);
 
 #endif

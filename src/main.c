@@ -26,7 +26,8 @@ int main()
     
     FILE *readingFile = openFile("teste.txt", "rt");
     readFile(readingFile, 5, 3);
-
+    readFirstLineFromEach(3);
+    
    /* printEntities(head);
     quickSort(head, 5);
 

@@ -12,16 +12,17 @@ void printEntities(entity *head){
     }
 }
 
-entity *createEntity(char *url, int amount){
+entity *createEntity(char *url, int amount, int tapeIdentifier){
     entity *newEntity = malloc(sizeof(entity));
     newEntity->url = strdup(url);
     newEntity->amount = amount;
+    newEntity->tapeIdentifier = tapeIdentifier;
     newEntity->next = NULL;
     return newEntity;
 }
 
-void addEntity(char *url, int amount, entity *head){
-    entity *newEntity = createEntity(url, amount);
+void addEntity(char *url, int amount, int tapeIdentifier, entity *head){
+    entity *newEntity = createEntity(url, amount, tapeIdentifier);
     entity *second = head->next;
     head->next = newEntity;
     newEntity->next = second;
