@@ -3,14 +3,6 @@
 
 #include "entity.h"
 
-entity *getAtPosition(int position, entity *head){
-    entity *aux = head->next;
-    for(int i = 0; i < position; i++){
-        aux = aux->next;
-    }
-    return aux;
-}
-
 entity *findPivot(int *i, int *j, entity *head){
     int correctPosition = (*i + *j)/2;
     return getAtPosition(correctPosition, head);

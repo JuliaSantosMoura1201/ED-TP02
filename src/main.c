@@ -21,17 +21,9 @@ int main()
     scanf("%s", writeFileName);*/
 
     setbuf(stdout, NULL);
-    /*entity *head = malloc(sizeof(entity));
-    head->next = NULL;*/
     
     FILE *readingFile = openFile("teste.txt", "rt");
-    readFile(readingFile, 5, 3);
-    readFirstLineFromEach(3);
-    
-   /* printEntities(head);
-    quickSort(head, 5);
-
-    printf("\n\nAfter Quickstort\n");
-    printEntities(head);*/
+    readFile(readingFile, 5, 7);
+    readFirstLineFromEach(7);
     return 0;
 }

@@ -5,6 +5,7 @@
 #include "files.h"
 #include "entity.h"
 #include "quicksort.h"
+#include "heap.h"
 
 void getParameters(char *result, int tapeIdentifier, entity *head){
 
@@ -43,8 +44,8 @@ void writeOnFile(char *line, FILE *file){
 void writeEntitiesAtFile(entity *head, FILE *file){
     entity *aux = head->next;
     while(aux != NULL){
-        char *line = malloc (sizeof (char) * 25);
-        sprintf(line, "Tape: %d | %s %d ", aux->tapeIdentifier, aux->url, aux->amount);
+        char *line = malloc (sizeof (char) * 50);
+        sprintf(line,"%s %d",aux->url, aux->amount);
         writeOnFile(line, file);
         aux = aux->next;
     }
@@ -65,9 +66,9 @@ void readFile(FILE *file, int numEntities, int numTapes){
                     getParameters(result, i, head);
                 }
             }
-            
-            quickSort(head, numEntities);
 
+            quickSort(head, numEntities);
+            
             FILE *file = openFile(createTapeFileName(i), "wt");
             writeEntitiesAtFile(head, file);
             fclose(file);
@@ -76,12 +77,24 @@ void readFile(FILE *file, int numEntities, int numTapes){
 }
 
 void readFirstLineFromEach(int numTapes){
-    for(int i = 0; i < numTapes; i++){
+        
+    entity *head = malloc(sizeof(entity));
+    head->next = NULL;
+    
+    for(int i = numTapes-1; i >= 0; i--){
         char *fileName = createTapeFileName(i);
         FILE *file = openFile(fileName, "rt");
+
         char line[100];
         fgets(line, 100, file);
-        printf("File: %s | %s\n", fileName, line);
+        getParameters(line, i, head);
         fclose(file);
     }
+    
+    printEntities(head);
+    build(head, numTapes);
+    
+    printf("\nAfter build heap\n");
+    printEntities(head);
+
 }

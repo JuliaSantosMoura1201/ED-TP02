@@ -28,3 +28,11 @@ void addEntity(char *url, int amount, int tapeIdentifier, entity *head){
     newEntity->next = second;
 }
 
+entity *getAtPosition(int position, entity *head){
+    entity *aux = head->next;
+    for(int i = 0; i < position; i++){
+       aux = aux->next;
+    }
+    return aux;
+}
+
