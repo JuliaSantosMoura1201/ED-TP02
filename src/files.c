@@ -41,7 +41,7 @@ void writeOnFile(char *line, FILE *file){
 }
 
 void writeEntityOnFile(entity *e, FILE *file){
-    char *line = malloc (sizeof (char) * 50);
+    char *line = malloc (sizeof (char) * 200);
     sprintf(line,"%s %d",e->url, e->amount);
     writeOnFile(line, file);
 }
@@ -57,9 +57,8 @@ void writeEntitiesOnFile(entity *head, FILE *file){
 void readFile(FILE *file, int numEntities, int numTapes){
     char line[100];
     char *result;
-    while(!feof(file)){
+    //while(!feof(file)){
         for(int i = 0; i < numTapes; i++){
-            
             entity *head = malloc(sizeof(entity));
             head->next = NULL;
 
@@ -69,14 +68,16 @@ void readFile(FILE *file, int numEntities, int numTapes){
                     getParameters(result, i, head);
                 }
             }
-
-            quickSort(head, numEntities);
+            
+            if(!isEmpty(head))
+                quickSort(head, numEntities);
             
             FILE *file = openFile(createTapeFileName(i), "wt");
             writeEntitiesOnFile(head, file);
+
             fclose(file);
         }
-    }
+    //}
 }
 
 void readFirstLineFromEach(

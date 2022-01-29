@@ -16,10 +16,11 @@ void rebuild(int left, int right, entity *head){
     int tape = x->tapeIdentifier;
     
     while(j <= right-1){
-        if (j < right-1)
+        if (j < right-1){
            if(getAtPosition(j, head)->amount < getAtPosition(j + 1, head)->amount) j++;
-        
-        if(amount >= getAtPosition(j, head)->amount) break;
+           else if(getAtPosition(j, head)->amount == getAtPosition(j+1, head)->amount &&
+                getAtPosition(j, head)->url[0] < getAtPosition(j+1, head)->url[0]) j++;
+        }if(amount >= getAtPosition(j, head)->amount) break;
         
         // A[i] = A[j]
         entity *entityJ = getAtPosition(j, head);
@@ -65,8 +66,4 @@ void addOnHeap(char *result, int tapeIdentifier, entity *head){
     addEntity(url, amount, tapeIdentifier, head);
     int size = getSize(head);
     build(head, size);
-}
-
-bool isHeapEmpty(entity *head){
-    return head->next == NULL;
 }

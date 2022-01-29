@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <stdbool.h>
 
 #include "entity.h" 
 
@@ -44,4 +45,8 @@ int getSize(entity *head){
         aux = aux->next;
     }
     return size;
+}
+
+bool isEmpty(entity *head){
+    return head->next == NULL;
 }

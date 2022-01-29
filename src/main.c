@@ -24,36 +24,28 @@ int main()
     setbuf(stdout, NULL);
     
     FILE *readingFile = openFile("teste.txt", "rt");
-    readFile(readingFile, 5, 7);
-
+    readFile(readingFile, 5, 10);
 
     entity *head = malloc(sizeof(entity));
     head->next = NULL;
 
-    FILE *files[7];
+    FILE *files[10];
 
-    readFirstLineFromEach(7, files, head);
+    readFirstLineFromEach(10, files, head);
 
-    build(head, 7);
+    build(head, 10);
 
     FILE *exitFile = openFile("exit.txt", "wt");
 
-    while(!isHeapEmpty(head)){
-        printf("Entrou no while\n");
-        printEntities(head);
+    while(!isEmpty(head)){
         entity *biggestEntity = extractMax(head);
-        printf("Depois do extract\n");
-        printEntities(head);
-        printf("Biggest entity amount: %d\n", biggestEntity->amount);
         writeEntityOnFile(biggestEntity, exitFile);
-        printf("wrote entity on file: %s %d \n", biggestEntity->url, biggestEntity->amount);
         char *result = nextLineFromFile(biggestEntity->tapeIdentifier, files);
-        printf("next line from file: %s\n", result);
         if(result)
             addOnHeap(result, biggestEntity->tapeIdentifier, head);
     }
 
-    for (int i = 0; i < 7; i++){
+    for (int i = 0; i < 10; i++){
         fclose(files[i]);
     }
     
