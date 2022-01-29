@@ -56,7 +56,6 @@ void writeEntitiesOnFile(entity *head, FILE *file){
 void readFile(FILE *file, int numEntities, int numTapes){
     char line[100];
     char *result;
-    //while(!feof(file)){
         for(int i = 0; i < numTapes; i++){
             entity *head = malloc(sizeof(entity));
             head->next = NULL;
@@ -76,7 +75,6 @@ void readFile(FILE *file, int numEntities, int numTapes){
 
             fclose(file);
         }
-    //}
 }
 
 void readFirstLineFromEach(

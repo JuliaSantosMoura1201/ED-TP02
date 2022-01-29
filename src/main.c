@@ -9,33 +9,37 @@
 
 int main()
 {
-    /*int numEntities;
+    int numEntities;
+    printf("Insira o número de entidades por rodada:");
     scanf("%d", &numEntities);
 
     int numTapes;
+    printf("Insira o número de rodadas:");
     scanf("%d", &numTapes);
 
     char readFileName[100];
+    printf("Insira o nome do arquivo de entrada:");
     scanf("%s", readFileName);
 
     char writeFileName[100];
-    scanf("%s", writeFileName);*/
+    printf("Insira o nome do arquivo de saída:");
+    scanf("%s", writeFileName);
 
     setbuf(stdout, NULL);
     
-    FILE *readingFile = openFile("teste.txt", "rt");
-    readFile(readingFile, 5, 10);
+    FILE *readingFile = openFile(readFileName, "rt");
+    readFile(readingFile, numEntities, numTapes);
 
     entity *head = malloc(sizeof(entity));
     head->next = NULL;
 
-    FILE *files[10];
+    FILE *files[numTapes];
 
-    readFirstLineFromEach(10, files, head);
+    readFirstLineFromEach(numTapes, files, head);
 
-    build(head, 10);
+    build(head, numTapes);
 
-    FILE *exitFile = openFile("exit.txt", "wt");
+    FILE *exitFile = openFile(writeFileName, "wt");
 
     while(!isEmpty(head)){
         entity *biggestEntity = extractMax(head);
@@ -45,7 +49,7 @@ int main()
             addOnHeap(result, biggestEntity->tapeIdentifier, head);
     }
 
-    for (int i = 0; i < 10; i++){
+    for (int i = 0; i < numTapes; i++){
         fclose(files[i]);
     }
     
