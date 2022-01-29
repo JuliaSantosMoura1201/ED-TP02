@@ -6,6 +6,32 @@
 #include "entity.h"
 #include "files.h"
 
+char *removeSubString(const char *hostName, const char *substring){
+    int hostNameSize = strlen(hostName);
+    char *aux = malloc(hostNameSize);
+    char startSize = strlen(substring);
+    return strncpy(aux, hostName+startSize, hostNameSize - startSize);
+}
+
+bool urlIcomesFirstInAlphabeticalOrder(char *oldUrlI, char *oldUrlJ){
+    char *urlI = removeSubString(oldUrlI, "http://");
+    char *urlJ = removeSubString(oldUrlJ, "http://");
+    bool urlISmaller = false;
+    int urlISize = strlen(urlI);
+    int urlJSize = strlen(urlJ);
+    int smallerStringSize = urlJSize;
+
+    if(urlISize <= urlJSize) smallerStringSize = urlISize;
+
+    for(int i = 0; i < smallerStringSize; i++){
+        if(urlI[i] < urlJ[i]){
+            urlISmaller = true;
+            break;
+        }
+    }
+
+    return urlISmaller;
+}
 void rebuild(int left, int right, entity *head){
     int i = left;
     int j = (i+1)*2 - 1;
@@ -19,7 +45,7 @@ void rebuild(int left, int right, entity *head){
         if (j < right-1){
            if(getAtPosition(j, head)->amount < getAtPosition(j + 1, head)->amount) j++;
            else if(getAtPosition(j, head)->amount == getAtPosition(j+1, head)->amount &&
-                getAtPosition(j, head)->url[0] < getAtPosition(j+1, head)->url[0]) j++;
+               urlIcomesFirstInAlphabeticalOrder(getAtPosition(j, head)->url, getAtPosition(j+ 1, head)->url)) j++;
         }if(amount >= getAtPosition(j, head)->amount) break;
         
         // A[i] = A[j]

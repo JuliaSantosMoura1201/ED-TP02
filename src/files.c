@@ -7,7 +7,6 @@
 #include "quicksort.h"
 #include "heap.h"
 
-
 void getParameters(char *result, int tapeIdentifier, entity *head){
     char *url = strtok(result, " ");
     int amount = atof(strtok(NULL, " "));
