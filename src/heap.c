@@ -1,6 +1,10 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <stdbool.h>
+#include <string.h>
+
 #include "entity.h"
+#include "files.h"
 
 void rebuild(int left, int right, entity *head){
     int i = left;
@@ -33,8 +37,6 @@ void rebuild(int left, int right, entity *head){
     entityI->url = url;
     entityI->amount = amount;
     entityI->tapeIdentifier = tape;
-
-    printEntities(head);
         
 }
 
@@ -44,4 +46,27 @@ void build(entity *head, int n){
         left--;
         rebuild(left, n, head);
     }
+}
+
+entity *extractMax(entity *head){
+    entity *first = head->next;
+    entity *second = first->next;
+
+    head->next = second;
+
+    return first;
+}
+
+void addOnHeap(char *result, int tapeIdentifier, entity *head){
+    char copy[100];
+    char *url = strtok(result, " ");
+    char *strAmount = strtok(NULL, " ");
+    int amount = atof(strAmount);
+    addEntity(url, amount, tapeIdentifier, head);
+    int size = getSize(head);
+    build(head, size);
+}
+
+bool isHeapEmpty(entity *head){
+    return head->next == NULL;
 }

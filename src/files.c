@@ -7,11 +7,11 @@
 #include "quicksort.h"
 #include "heap.h"
 
-void getParameters(char *result, int tapeIdentifier, entity *head){
 
+void getParameters(char *result, int tapeIdentifier, entity *head){
     char *url = strtok(result, " ");
     int amount = atof(strtok(NULL, " "));
-    addEntity(url, amount,tapeIdentifier, head);
+    addEntity(url, amount, tapeIdentifier, head);
 }
 
 FILE *openFile(char *name, const char *op){
@@ -40,13 +40,16 @@ void writeOnFile(char *line, FILE *file){
     fputs("\n", file);
 }
 
+void writeEntityOnFile(entity *e, FILE *file){
+    char *line = malloc (sizeof (char) * 50);
+    sprintf(line,"%s %d",e->url, e->amount);
+    writeOnFile(line, file);
+}
 
-void writeEntitiesAtFile(entity *head, FILE *file){
+void writeEntitiesOnFile(entity *head, FILE *file){
     entity *aux = head->next;
     while(aux != NULL){
-        char *line = malloc (sizeof (char) * 50);
-        sprintf(line,"%s %d",aux->url, aux->amount);
-        writeOnFile(line, file);
+        writeEntityOnFile(aux, file);
         aux = aux->next;
     }
 }
@@ -70,31 +73,30 @@ void readFile(FILE *file, int numEntities, int numTapes){
             quickSort(head, numEntities);
             
             FILE *file = openFile(createTapeFileName(i), "wt");
-            writeEntitiesAtFile(head, file);
+            writeEntitiesOnFile(head, file);
             fclose(file);
         }
     }
 }
 
-void readFirstLineFromEach(int numTapes){
-        
-    entity *head = malloc(sizeof(entity));
-    head->next = NULL;
-    
+void readFirstLineFromEach(
+    int numTapes,
+    FILE **files,
+    entity *head
+){
     for(int i = numTapes-1; i >= 0; i--){
         char *fileName = createTapeFileName(i);
         FILE *file = openFile(fileName, "rt");
-
+        files[i] = file;
         char line[100];
         fgets(line, 100, file);
         getParameters(line, i, head);
-        fclose(file);
     }
-    
-    printEntities(head);
-    build(head, numTapes);
-    
-    printf("\nAfter build heap\n");
-    printEntities(head);
+}
 
+char *nextLineFromFile(int tapeIdentifier, FILE **files){
+    FILE *selectedFile = files[tapeIdentifier];
+    char line[100], *result;
+    result = fgets(line, 100, selectedFile);
+    return result;
 }

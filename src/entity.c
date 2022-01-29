@@ -36,3 +36,12 @@ entity *getAtPosition(int position, entity *head){
     return aux;
 }
 
+int getSize(entity *head){
+    int size = 0;
+    entity *aux = head->next;
+    while(aux != NULL){
+        size++;
+        aux = aux->next;
+    }
+    return size;
+}
