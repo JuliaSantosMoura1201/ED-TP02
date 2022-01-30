@@ -42,11 +42,18 @@ int main()
     FILE *exitFile = openFile(writeFileName, "wt");
 
     while(!isEmpty(head)){
+        printf("\n");
+        printEntities(head);
         entity *biggestEntity = extractMax(head);
+        printf("\nPrint max value: %s %d\n", biggestEntity->url, biggestEntity->amount);
         writeEntityOnFile(biggestEntity, exitFile);
         char *result = nextLineFromFile(biggestEntity->tapeIdentifier, files);
         if(result)
             addOnHeap(result, biggestEntity->tapeIdentifier, head);
+        else{
+            int size = getSize(head);
+            build(head, size);
+        }
     }
 
     for (int i = 0; i < numTapes; i++){

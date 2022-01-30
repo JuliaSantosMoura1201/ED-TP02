@@ -44,8 +44,8 @@ void rebuild(int left, int right, entity *head){
     while(j <= right-1){
         if (j < right-1){
            if(getAtPosition(j, head)->amount < getAtPosition(j + 1, head)->amount) j++;
-           else if(getAtPosition(j, head)->amount == getAtPosition(j+1, head)->amount &&
-               urlIcomesFirstInAlphabeticalOrder(getAtPosition(j, head)->url, getAtPosition(j+ 1, head)->url)) j++;
+           /*else if(getAtPosition(j, head)->amount == getAtPosition(j+1, head)->amount &&
+               urlIcomesFirstInAlphabeticalOrder(getAtPosition(j, head)->url, getAtPosition(j+ 1, head)->url)) j++;*/
         }if(amount >= getAtPosition(j, head)->amount) break;
         
         // A[i] = A[j]
@@ -68,6 +68,7 @@ void rebuild(int left, int right, entity *head){
 }
 
 void build(entity *head, int n){
+    printf("Size %d\n",n);
     int left = (n/2);
     while(left > 0){
         left--;

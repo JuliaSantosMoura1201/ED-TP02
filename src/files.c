@@ -86,9 +86,9 @@ void readFirstLineFromEach(
         char *fileName = createTapeFileName(i);
         FILE *file = openFile(fileName, "rt");
         files[i] = file;
-        char line[100];
-        fgets(line, 100, file);
-        getParameters(line, i, head);
+        char line[100], *result;
+        result = fgets(line, 100, file);
+        getParameters(result, i, head);
     }
 }
 
