@@ -68,7 +68,7 @@ void readFile(FILE *file, int numEntities, int numTapes){
             }
             
             if(!isEmpty(head))
-                quickSort(head, numEntities);
+                quickSort(head, getSize(head));
             
             FILE *file = openFile(createTapeFileName(i), "wt");
             writeEntitiesOnFile(head, file);
