@@ -2,6 +2,7 @@
 #include <stdio.h>
 
 #include "entity.h"
+#include "stringUtil.h"
 
 entity *findPivot(int *i, int *j, entity *head){
     int correctPosition = (*i + *j)/2;
@@ -45,8 +46,17 @@ void partition(
     *j = right;
     entity *_pivot = findPivot(i, j, head);
     do{
-        while(_pivot->amount < getAtPosition(*i, head)->amount)(*i)++;
-        while(_pivot->amount > getAtPosition(*j, head)->amount)(*j)--;
+
+        while(_pivot->amount < getAtPosition(*i, head)->amount ||
+            (_pivot->amount == getAtPosition(*i, head)->amount && 
+             urlIcomesFirstInAlphabeticalOrder(getAtPosition(*i, head)->url,_pivot->url ))
+        )(*i)++;
+    
+        while(_pivot->amount > getAtPosition(*j, head)->amount||
+            (_pivot->amount == getAtPosition(*j, head)->amount && 
+             urlIcomesFirstInAlphabeticalOrder(_pivot->url, getAtPosition(*j, head)->url))
+        )(*j)--;
+
 
         if(*i <= *j){
             changePositions(i, j, head);

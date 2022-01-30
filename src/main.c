@@ -42,10 +42,7 @@ int main()
     FILE *exitFile = openFile(writeFileName, "wt");
 
     while(!isEmpty(head)){
-        printf("\n");
-        printEntities(head);
         entity *biggestEntity = extractMax(head);
-        printf("\nPrint max value: %s %d\n", biggestEntity->url, biggestEntity->amount);
         writeEntityOnFile(biggestEntity, exitFile);
         char *result = nextLineFromFile(biggestEntity->tapeIdentifier, files);
         if(result)
